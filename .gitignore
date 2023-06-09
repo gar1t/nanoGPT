@@ -2,3 +2,7 @@
 .ipynb_checkpoints/
 __pycache__/
 *.pyc
+*.bin
+*.pkl
+input.txt
+out-shakespeare-char/
