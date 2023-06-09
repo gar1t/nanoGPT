@@ -31,6 +31,16 @@ train-shakespeare-char:
     warmup_iters: 100
     weight_decay: 1e-1
 
+    # System
+    device:
+      default: cuda
+      choices: [cpu, cuda, cuda:0, cuda:1, cuda:2, cuda:3, cuda:4, mps]
+      allow-other: true
+    dtype:
+      default: bfloat16
+      choices: [bfloat16, float32, float16]
+    compile: true
+
     # Shakespeare config (from config/train_shakespeare_char.py) -
     # these ought not be modified by the user and should be hidden
     # (pending [this
@@ -50,3 +60,30 @@ train-shakespeare-char:
     - operation: prepare-shakespeare-char
   output-scalars:
     - 'iter (?P<step>\step): loss (?P<loss>\value).*, mfu (?P<mfu>\value)'
+
+sample-shakespeare-char:
+  main: sample
+  sourcecode:
+    - sample.py
+    - model.py
+    - configurator.py
+
+  flags:
+    num_samples: 10
+    max_new_tokens: 500
+    start:
+      required: true
+    top_k: 200
+
+    # System
+    device:
+      default: cuda
+      choices: [cpu, cuda, cuda:0, cuda:1, cuda:2, cuda:3, cuda:4, mps]
+      allow-other: true
+
+  requires:
+    - operation: train-.*
+      name: model
+    - file: data/shakespeare_char/meta.pkl
+      target-path: data/shakespeare_char
+      name: meta
