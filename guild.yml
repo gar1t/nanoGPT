@@ -58,6 +58,8 @@ train-shakespeare-char:
 
   requires:
     - operation: prepare-shakespeare-char
+      name: prepared-data
+
   output-scalars:
     - 'iter (?P<step>\step): loss (?P<loss>\value).*, mfu (?P<mfu>\value)'
 
@@ -83,7 +85,8 @@ sample-shakespeare-char:
 
   requires:
     - operation: train-.*
-      name: model
+      name: trained-model
+
     - file: data/shakespeare_char/meta.pkl
       target-path: data/shakespeare_char
-      name: meta
+      name: dataset-meta
