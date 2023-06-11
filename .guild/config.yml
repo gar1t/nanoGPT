@@ -3,4 +3,3 @@ remotes:
     type: s3
     description: S3 bucket for remote runs
     bucket: guild-nanogpt
-    local-env: .guild/s3-creds.gpg
