@@ -23,7 +23,7 @@ train-shakespeare-char:
     gradient_accumulation_steps: 1
     init_from:
       default: scratch
-      choices: [scratch, resume, gpt2]
+      choices: [scratch, resume, gpt2, gpt2-medium, gpt2-large, gpt2-xl]
     learning_rate: 1e-3
     lr_decay_iters: 5000
     max_iters: 5000
